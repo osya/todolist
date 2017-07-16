@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <a href="/todos"><< Go Back</a>
+    <br>
+    <h3>{{ todo.title }}</h3>
+    <p>{{ todo.text|safe }}</p>
+    <br>
+    Created on {{ todo.created_at }}
+{% endblock %}
+

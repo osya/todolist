@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render_to_response, redirect
 from .forms import addForm
 from .models import Todo
 
@@ -11,5 +11,5 @@ def add(request):
         todo = Todo(title=title, text=text)
         todo.save()
         return redirect('/todos')
-    return render(request, 'todos/add.html', {'form': form})
+    return render_to_response('todos/add.html', {'form': form})
 

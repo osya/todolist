@@ -1,8 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 from django import forms
+from todos.models import Todo
 
 
-class addForm(forms.Form):
-    title = forms.CharField(required=True, max_length=200)
-    text = forms.CharField(widget=forms.Textarea)
+class addForm(forms.ModelForm):
+    class Meta:
+        model = Todo
+        fields = ['title', 'text', 'created_at']

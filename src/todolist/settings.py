@@ -31,17 +31,22 @@ ALLOWED_HOSTS = ['django-todolist.herokuapp.com', '127.0.0.1']
 
 # Application definition
 
-INSTALLED_APPS = [
-    'todos.apps.TodosConfig',
+DJANGO_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+)
+THIRD_PARTY_APPS = (
     'django_jinja',
     'crispy_forms',
-]
+)
+LOCAL_APPS = (
+    'todos.apps.TodosConfig',
+)
+INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

@@ -1,0 +1,18 @@
+{% extends '_layouts/base.html' %}
+
+{% block headline %}
+    <header><h1>{{ object.title }}</h1></header>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
+            <p>{{ object.text|safe }}</p>
+            <br>
+            Created on {{ object.created_at }}
+            <br>
+            <a href="{% url 'todos:list' %}"><< Go Back</a>
+        </div>
+    </div>
+{% endblock %}
+

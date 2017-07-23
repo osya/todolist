@@ -12,9 +12,9 @@
     <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css">
 </head>
 <body>
-    {% block header %}
-    {% endblock %}
-    {% block content %}
-    {% endblock %}
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">{% block headline %}{% endblock %}</div>
+
+    {% block content %}{% endblock %}
 </body>
 </html>

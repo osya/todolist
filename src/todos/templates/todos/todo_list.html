@@ -1,0 +1,23 @@
+{% extends '_layouts/base.html' %}
+
+{% block headline %}
+    <header><h1>TodoList</h1></header>
+    <a href="{% url 'todos:create' %}">Add Todo</a>
+{% endblock %}
+
+{% block content %}
+    <div class='row'>
+        <div class='col-sm-6 col-sm-offset-3'>
+            <ul>
+                {% for object in object_list %}
+                    <li class="list-group-item">
+                        <a href="{{ object.get_absolute_url }}">{{ object }}</a>
+                    </li>
+                    {% empty %}
+                    <li class="list-group-item">You have no tasks</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}
+

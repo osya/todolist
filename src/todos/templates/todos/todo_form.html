@@ -1,0 +1,16 @@
+{% extends '_layouts/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block headline %}
+    <header><h1>{{ headline }}</h1></header>
+{% endblock headline %}
+
+{% block content %}
+    <div class='row'>
+        <div class='col-sm-6 col-sm-offset-3'>
+            {% crispy form %}
+            <br>
+            <a href="{% url 'todos:list' %}">Go Back</a>
+        </div>
+    </div>
+{% endblock %}

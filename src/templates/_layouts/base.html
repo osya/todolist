@@ -9,12 +9,15 @@
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" type="text/css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/main.css' %}" rel="stylesheet" type="text/css">
 </head>
 <body>
-    <!-- Main jumbotron for a primary marketing message or call to action -->
-    <div class="jumbotron">{% block headline %}{% endblock %}</div>
+    <header>{% include '_layouts/navbar.html' %}</header>
 
-    {% block content %}{% endblock %}
+    <div class="container theme-showcase" role="main">
+        {% block headline %}{% endblock %}
+
+        {% block content %}{% endblock %}
+    </div>
 </body>
 </html>

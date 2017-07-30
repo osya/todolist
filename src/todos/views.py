@@ -12,8 +12,8 @@ class TodoCreateView(views.SetHeadlineMixin, generic.CreateView):
 
 
 class TodoDetailView(generic.DetailView):
-    model=Todo
+    model = Todo
 
 
 class TodoListView(generic.ListView):
-    queryset=Todo.objects.all().order_by('-created_at')[:10]
+    queryset = Todo.objects.all().order_by('-created_at')[:10]

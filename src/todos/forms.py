@@ -17,6 +17,6 @@ class TodoForm(forms.ModelForm):
         self.helper.layout = Layout(
                 'title', 'text', 'created_at',
                 ButtonHolder(
-                        Submit('create', 'Create', css_class='btn btn-primary')
+                        Submit('create', 'Create', css_class='btn btn-default')
                 )
         )

@@ -16,3 +16,5 @@ class TodoDetailView(views.LoginRequiredMixin, generic.DetailView):
 
 class TodoListView(views.LoginRequiredMixin, generic.ListView):
     queryset = Todo.objects.all().order_by('-created_at')[:10]
+
+# TODO: Сделать, чтобы для каждого аккаунта отображались только его задачи, а не весь список задач

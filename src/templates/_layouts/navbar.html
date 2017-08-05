@@ -14,7 +14,13 @@
         <ul class="nav navbar-nav">
             {% url 'todos:list' as home %}
             <li {% if request.path == home %} class="active" {% endif %}><a href="{% url 'todos:list' %}">Home</a></li>
-            <li {% if request.path == home %} class="active" {% endif %}><a href="{% url 'todos:create' %}">Add Todo</a></li>
+            {% if request.user.is_authenticated %}
+                <li {% if request.path == home %} class="active" {% endif %}>
+                    <a href="{% url 'todos:create' %}">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;Add Todo
+                    </a>
+                </li>
+            {% endif %}
         </ul>
         <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">
@@ -34,10 +40,6 @@
                     </li>
                     <li><a href="{% url 'account_signup' %}">Signup</a></li>
                   {% endif %}
-                <li role="separator" class="divider"></li>
-                <li class="dropdown-header">Nav header</li>
-                <li><a href="#">Separated link</a></li>
-                <li><a href="#">One more separated link</a></li>
                 </ul>
             </li>
         </ul>

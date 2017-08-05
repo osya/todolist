@@ -1,8 +1,8 @@
 {% extends '_layouts/base.html' %}
 
-{% block headline %}
-    <h1>{{ object.title }}</h1>
-{% endblock %}
+{% block title %}Task Detail{% endblock %}
+
+{% block headline %}<h2>Task: {{ object.title }}</h2>{% endblock %}
 
 {% block content %}
     <div class="row">

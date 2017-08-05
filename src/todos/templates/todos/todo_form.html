@@ -1,9 +1,9 @@
 {% extends '_layouts/base.html' %}
 {% load crispy_forms_tags %}
 
-{% block headline %}
-    <h1>{{ headline }}</h1>
-{% endblock headline %}
+{% block title %}{{ headline }}{% endblock %}
+
+{% block headline %}<h2>{{ headline }}</h2>{% endblock headline %}
 
 {% block content %}
     <div class='row'>

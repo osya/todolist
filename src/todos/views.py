@@ -4,7 +4,7 @@ from .forms import TodoForm
 from .models import Todo
 
 
-class TodoCreateView(views.LoginRequiredMixin, views.SetHeadlineMixin, generic.CreateView):
+class TodoCreateView(views.SetHeadlineMixin, views.LoginRequiredMixin, generic.CreateView):
     form_class = TodoForm
     model = Todo
     headline = 'Add Todo'

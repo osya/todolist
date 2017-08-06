@@ -1,17 +1,17 @@
 {% extends '_layouts/base.html' %}
 
-{% block title %}Task Detail{% endblock %}
+{% block title %}Task: {{ object.title }}{% endblock %}
 
 {% block headline %}<h2>Task: {{ object.title }}</h2>{% endblock %}
 
 {% block content %}
     <div class="row">
         <div class="col-sm-6 col-sm-offset-3">
-            <p>{{ object.text|safe }}</p>
+            <p>{{ object.text.rendered|safe }}</p>
             <br>
             Created on {{ object.created_at }}
             <br>
-            <a href="{% url 'todos:list' page %}"><< Go Back</a>
+            <a href="{% url 'todos:list' page %}"><< Back to the task list</a>
         </div>
     </div>
 {% endblock %}

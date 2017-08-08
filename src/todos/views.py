@@ -4,22 +4,24 @@ from .forms import TodoForm
 from .models import Todo
 
 
-class TodoCreateView(views.SetHeadlineMixin, views.LoginRequiredMixin, generic.CreateView):
+class PageContextMixin(object):
+    def get_context_data(self, **kwargs):
+        context = super(PageContextMixin, self).get_context_data(**kwargs)
+        context['page'] = self.request.GET.get('page', 1)
+        return context
+
+
+class TodoCreateView(views.SetHeadlineMixin, views.LoginRequiredMixin, PageContextMixin, generic.CreateView):
     form_class = TodoForm
     model = Todo
     headline = 'Add Todo'
 
 
-class TodoDetailView(views.LoginRequiredMixin, generic.DetailView):
+class TodoDetailView(views.LoginRequiredMixin, PageContextMixin, generic.DetailView):
     model = Todo
 
-    def get_context_data(self, **kwargs):
-        context = super(TodoDetailView, self).get_context_data(**kwargs)
-        context['page'] = self.request.GET.get('page', 1)
-        return context
 
-
-class TodoListView(views.LoginRequiredMixin, generic.ListView):
+class TodoListView(views.LoginRequiredMixin, PageContextMixin, generic.ListView):
     queryset = Todo.objects.all().order_by('-created_at')
     paginate_by = 10
 

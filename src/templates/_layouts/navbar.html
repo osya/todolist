@@ -16,7 +16,7 @@
             <li {% if request.path == home %} class="active" {% endif %}><a href="{% url 'todos:list' %}">Home</a></li>
             {% if request.user.is_authenticated %}
                 <li {% if request.path == home %} class="active" {% endif %}>
-                    <a href="{% url 'todos:create' %}">
+                    <a href="{% url 'todos:create' %}{% if page %}?page={{ page }}{% endif %}">
                         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;Add Todo
                     </a>
                 </li>

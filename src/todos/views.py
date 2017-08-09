@@ -1,10 +1,12 @@
 from django.views import generic
+from django.views.generic.base import ContextMixin, View
 from braces import views
+
 from .forms import TodoForm
 from .models import Todo
 
 
-class PageContextMixin(object):
+class PageContextMixin(ContextMixin, View):
     def get_context_data(self, **kwargs):
         context = super(PageContextMixin, self).get_context_data(**kwargs)
         context['page'] = int(self.request.GET.get('page', 1))

@@ -23,9 +23,12 @@ class TodoDetailView(views.LoginRequiredMixin, PageContextMixin, generic.DetailV
     model = Todo
 
 
-class TodoListView(views.LoginRequiredMixin, PageContextMixin, generic.ListView):
+class TodoListView(views.LoginRequiredMixin, PageContextMixin, generic.ArchiveIndexView):
     queryset = Todo.objects.all().order_by('-created_at')
     paginate_by = 10
+    date_field = 'created_at'
+    allow_empty = True
+    allow_future = True
 
 # TODO: Сделать, чтобы для каждого аккаунта отображались только его задачи, а не весь список задач
 # TODO: Create REST API

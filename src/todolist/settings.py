@@ -47,6 +47,7 @@ THIRD_PARTY_APPS = (
     'allauth.account',
     'allauth.socialaccount',
     'precise_bbcode',
+    'taggit',
 )
 LOCAL_APPS = (
     'todos.apps.TodosConfig',

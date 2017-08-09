@@ -9,13 +9,13 @@ from todos.models import Todo
 class TodoForm(forms.ModelForm):
     class Meta:
         model = Todo
-        fields = ('title', 'text',)
+        fields = ('title', 'text', 'tags',)
 
     def __init__(self, *args, **kwargs):
         super(TodoForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.layout = Layout(
-                'title', 'text',
+                'title', 'text', 'tags',
                 ButtonHolder(
                         Submit('create', 'Create', css_class='btn btn-default')
                 )

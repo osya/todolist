@@ -9,6 +9,12 @@
         <div class="col-sm-6 col-sm-offset-3">
             <p>{{ object.text.rendered|safe }}</p>
             <br>
+            {% with names=object.tags.names %}
+                {% if names.count > 0 %}
+                    <p>Tags: {% for name in names %}{% if not forloop.first %}, {% endif %}{{ name }}{% endfor %}</p>
+                    <br>
+                {% endif %}
+            {% endwith %}
             Created on {{ object.created_at }}
             <br>
             <a href="{% url 'todos:list' %}{% if page > 1 %}?page={{ page }}{% endif %}"><< Back to the task list</a>

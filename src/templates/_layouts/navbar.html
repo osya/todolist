@@ -13,10 +13,9 @@
     <div id="navbar" class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
             {% url 'todos:list' as home %}
-            <li {% if request.path == home %} class="active" {% endif %}><a href="{% url 'todos:list' %}">Home</a></li>
             {% if request.user.is_authenticated %}
                 <li {% if request.path == home %} class="active" {% endif %}>
-                    <a href="{% url 'todos:create' %}{% if page %}?page={{ page }}{% endif %}">
+                    <a href="{% url 'todos:create' %}{% if page and page > 1 %}?page={{ page }}{% endif %}">
                         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;Add Todo
                     </a>
                 </li>

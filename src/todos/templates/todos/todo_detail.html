@@ -11,7 +11,7 @@
             <br>
             Created on {{ object.created_at }}
             <br>
-            <a href="{% url 'todos:list' %}?page={{ page }}"><< Back to the task list</a>
+            <a href="{% url 'todos:list' %}{% if page > 1 %}?page={{ page }}{% endif %}"><< Back to the task list</a>
         </div>
     </div>
 {% endblock %}

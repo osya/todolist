@@ -10,7 +10,7 @@
             <ul>
                 {% for object in object_list %}
                     <li class="list-group-item">
-                        <a href="{{ object.get_absolute_url }}?page={{ page_obj.number }}">{{ object }}</a>
+                        <a href="{{ object.get_absolute_url }}{% if page_obj.number > 1 %}?page={{ page_obj.number }}{% endif %}">{{ object }}</a>
                     </li>
                     {% empty %}
                     <li class="list-group-item">You have no tasks</li>
@@ -20,14 +20,14 @@
                 <div class="pagination">
                     <span class="page-links">
                         {% if page_obj.has_previous %}
-                            <a href="{% url 'todos:list' %}?page={{ page_obj.previous_page_number }}">&lt;</a>
+                            <a href="{% url 'todos:list' %}{% if page_obj.previous_page_number > 1 %}?page={{ page_obj.previous_page_number }}{% endif %}">&lt;</a>
                         {% endif %}
                         {% for pn in paginator.page_range %}
                             {% if not forloop.first %}
                                 &nbsp;&nbsp;|&nbsp;&nbsp;
                             {% endif %}
                             {% if page_obj.number != pn %}
-                                <a href="{% url 'todos:list' %}?page={{ pn }}">
+                                <a href="{% url 'todos:list' %}{% if pn > 1 %}?page={{ pn }}{% endif %}">
                             {% endif %}
                             {{ pn }}
                             {% if page_obj.number != pn %}

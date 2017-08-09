@@ -7,7 +7,7 @@ from .models import Todo
 class PageContextMixin(object):
     def get_context_data(self, **kwargs):
         context = super(PageContextMixin, self).get_context_data(**kwargs)
-        context['page'] = self.request.GET.get('page', 1)
+        context['page'] = int(self.request.GET.get('page', 1))
         return context
 
 

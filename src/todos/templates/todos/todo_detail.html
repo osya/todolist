@@ -11,13 +11,15 @@
             <br>
             {% with names=object.tags.names %}
                 {% if names.count > 0 %}
-                    <p>Tags: {% for name in names %}{% if not forloop.first %}, {% endif %}{{ name }}{% endfor %}</p>
+                    <p>Tags: {% for name in names %}{% if not forloop.first %}, {% endif %}
+                        <a href="{% url 'todos:list' %}{% query_builder request tags=name page=None %}">{{ name }}</a>
+                    {% endfor %}</p>
                     <br>
                 {% endif %}
             {% endwith %}
             Created on {{ object.created_at }}
             <br>
-            <a href="{% url 'todos:list' %}{% if page > 1 %}?page={{ page | urlencode }}{% endif %}"><< Back to the task list</a>
+            <a href="{% url 'todos:list' %}{% query_builder request %}"><< Back to the task list</a>
         </div>
     </div>
 {% endblock %}

@@ -3,6 +3,8 @@
 from django import forms
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, ButtonHolder, Submit
+from taggit_selectize.widgets import TagSelectize
+
 from todos.models import Todo
 
 
@@ -10,6 +12,7 @@ class TodoForm(forms.ModelForm):
     class Meta:
         model = Todo
         fields = ('title', 'text', 'tags',)
+        widgets = {'tags': TagSelectize(), }
 
     def __init__(self, *args, **kwargs):
         super(TodoForm, self).__init__(*args, **kwargs)

@@ -22,4 +22,5 @@ urlpatterns = [
     url(r'^todos/', include('todos.urls', namespace='todos')),
     url(r'^admin/', admin.site.urls),
     url(r'^accounts/', include('allauth.urls')),
+    url(r'^taggit/', include('taggit_selectize.urls')),
 ]

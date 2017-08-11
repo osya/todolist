@@ -48,6 +48,7 @@ THIRD_PARTY_APPS = (
     'allauth.socialaccount',
     'precise_bbcode',
     'taggit',
+    'taggit_selectize',
 )
 LOCAL_APPS = (
     'todos.apps.TodosConfig',
@@ -203,4 +204,13 @@ SOCIALACCOUNT_PROVIDERS = {
         'METHOD': 'oauth2',
         'VERIFIED_EMAIL': False
     }
+}
+
+# Taggit-Selectize settings
+TAGGIT_TAGS_FROM_STRING = 'taggit_selectize.utils.parse_tags'
+TAGGIT_STRING_FROM_TAGS = 'taggit_selectize.utils.join_tags'
+
+# Disable it if you need to work with taggit-selectize in django-admin
+TAGGIT_SELECTIZE = {
+    'CSS_FILENAMES': ("taggit_selectize/css/selectize.bootstrap3.css",),
 }

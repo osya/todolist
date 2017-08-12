@@ -1,5 +1,6 @@
 from braces import views
 from django.core.urlresolvers import reverse
+from django.db.models import Q
 from django.shortcuts import redirect
 from django.views import generic
 from django.views.generic.base import View
@@ -75,6 +76,11 @@ class TodoListView(views.LoginRequiredMixin, RestrictToUserMixin, generic.Archiv
         if tags:
             tags = tags.split(',')
             queryset = queryset.filter(tags__name__in=tags).distinct()
+        q = self.request.GET.get('q')
+        if q:
+            queryset = queryset.filter(
+                    Q(title__icontains=q) |
+                    Q(text__icontains=q)).distinct()
         return queryset
 
 # TODO: Create REST API

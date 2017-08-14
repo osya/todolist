@@ -1,4 +1,5 @@
 from braces import views
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.urlresolvers import reverse
 from django.db.models import Q
 from django.shortcuts import redirect
@@ -40,7 +41,7 @@ class RestrictToUserMixin(View):
             else redirect(reverse('login'))
 
 
-class TodoCreateView(views.SetHeadlineMixin, views.LoginRequiredMixin, generic.CreateView):
+class TodoCreateView(views.SetHeadlineMixin, LoginRequiredMixin, generic.CreateView):
     form_class = TodoForm
     model = Todo
     headline = 'Add Todo'
@@ -59,11 +60,11 @@ class TodoCreateView(views.SetHeadlineMixin, views.LoginRequiredMixin, generic.C
         return super(TodoCreateView, self).form_valid(form)
 
 
-class TodoDetailView(views.LoginRequiredMixin, RestrictToUserMixin, generic.DetailView):
+class TodoDetailView(LoginRequiredMixin, RestrictToUserMixin, generic.DetailView):
     model = Todo
 
 
-class TodoListView(views.LoginRequiredMixin, RestrictToUserMixin, generic.ArchiveIndexView):
+class TodoListView(LoginRequiredMixin, RestrictToUserMixin, generic.ArchiveIndexView):
     queryset = Todo.objects.all().order_by('-created_at')
     paginate_by = 10
     date_field = 'created_at'

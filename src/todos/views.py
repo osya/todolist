@@ -72,6 +72,7 @@ class TodoListView(LoginRequiredMixin, RestrictToUserMixin, generic.ArchiveIndex
     allow_future = True
 
     def get_queryset(self):
+        # TODO: Move to Model Manager
         queryset = super(TodoListView, self).get_queryset()
         tags = self.request.GET.get('tags')
         if tags:

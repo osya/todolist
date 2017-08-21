@@ -1,7 +1,6 @@
 from braces import views
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.urlresolvers import reverse
-from django.db.models import Q
 from django.shortcuts import redirect
 from django.views import generic
 from django.views.generic.base import View
@@ -72,18 +71,7 @@ class TodoListView(LoginRequiredMixin, RestrictToUserMixin, generic.ArchiveIndex
     allow_future = True
 
     def get_queryset(self):
-        # TODO: Move to Model Manager
-        queryset = super(TodoListView, self).get_queryset()
-        tags = self.request.GET.get('tags')
-        if tags:
-            tags = tags.split(',')
-            queryset = queryset.filter(tags__name__in=tags).distinct()
-        q = self.request.GET.get('q')
-        if q:
-            queryset = queryset.filter(
-                    Q(title__icontains=q) |
-                    Q(text__icontains=q)).distinct()
-        return queryset
+        return Todo.objects.list(self.request.GET)
 
 # TODO: Create REST API
 # TODO: Implement Update & Delete tasks

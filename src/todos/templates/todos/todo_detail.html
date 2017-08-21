@@ -1,4 +1,5 @@
 {% extends '_layouts/base.html' %}
+{% load django_markdown %}
 
 {% block title %}Task: {{ object.title }}{% endblock %}
 
@@ -7,7 +8,7 @@
 {% block content %}
     <div class="row">
         <div class="col-sm-6 col-sm-offset-3">
-            <p>{{ object.text.rendered|safe }}</p>
+            <p>{{ object.text | markdown }}</p>
             <br>
             {% with names=object.tags.names %}
                 {% if names.count > 0 %}

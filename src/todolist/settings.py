@@ -46,7 +46,7 @@ THIRD_PARTY_APPS = (
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    'precise_bbcode',
+    'django_markdown',
     'taggit',
     'taggit_selectize',
 )

@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 from django import forms
+from django_markdown.widgets import MarkdownWidget
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, ButtonHolder, Submit
 from taggit_selectize.widgets import TagSelectize
@@ -12,7 +13,10 @@ class TodoForm(forms.ModelForm):
     class Meta:
         model = Todo
         fields = ('title', 'text', 'tags',)
-        widgets = {'tags': TagSelectize(), }
+        widgets = {
+            'tags': TagSelectize(),
+            'test': MarkdownWidget,
+        }
 
     def __init__(self, *args, **kwargs):
         super(TodoForm, self).__init__(*args, **kwargs)

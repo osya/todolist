@@ -8,7 +8,7 @@ from taggit_selectize.managers import TaggableManager
 
 class TodoQuerySet(models.QuerySet):
     def list(self, query_dict={}):
-        queryset = self
+        queryset = self.order_by('-created_at')
         tags = query_dict.get('tags')
         if tags:
             tags = tags.split(',')

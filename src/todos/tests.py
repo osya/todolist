@@ -48,14 +48,14 @@ class TodoListViewTests(TestCase):
         request = self.factory.get('/')
         request.user = UserFactory(password=random_string_generator())
         response = TodoListView.as_view()(request)
-        self.assertEquals(list(response.context_data['object_list']), [],)
+        self.assertEquals(list(response.context_data['latest']), [],)
 
     def test_todos_in_context(self):
         request = self.factory.get('/')
         todo = TodoFactory()
         request.user = todo.user
         response = TodoListView.as_view()(request)
-        self.assertEquals(list(response.context_data['object_list']), [todo],)
+        self.assertEquals(list(response.context_data['latest']), [todo],)
 
 
 class CreatePostIntegrationTest(LiveServerTestCase):

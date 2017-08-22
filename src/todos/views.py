@@ -64,7 +64,6 @@ class TodoDetailView(LoginRequiredMixin, RestrictToUserMixin, generic.DetailView
 
 
 class TodoListView(LoginRequiredMixin, RestrictToUserMixin, generic.ArchiveIndexView):
-    queryset = Todo.objects.all().order_by('-created_at')
     paginate_by = 10
     date_field = 'created_at'
     allow_empty = True

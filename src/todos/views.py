@@ -1,10 +1,10 @@
-from braces import views
+from braces.views import SetHeadlineMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.urlresolvers import reverse
 from django.shortcuts import redirect
-from django.views import generic
+from django.views.generic import CreateView, ArchiveIndexView
 from django.views.generic.base import View
-from django.views.generic.detail import SingleObjectMixin
+from django.views.generic.detail import SingleObjectMixin, DetailView
 from django.views.generic.list import MultipleObjectMixin
 
 from todos.forms import TodoForm
@@ -40,7 +40,7 @@ class RestrictToUserMixin(View):
             else redirect(reverse('login'))
 
 
-class TodoCreateView(views.SetHeadlineMixin, LoginRequiredMixin, generic.CreateView):
+class TodoCreateView(SetHeadlineMixin, LoginRequiredMixin, CreateView):
     form_class = TodoForm
     model = Todo
     headline = 'Add Todo'
@@ -59,11 +59,11 @@ class TodoCreateView(views.SetHeadlineMixin, LoginRequiredMixin, generic.CreateV
         return super(TodoCreateView, self).form_valid(form)
 
 
-class TodoDetailView(LoginRequiredMixin, RestrictToUserMixin, generic.DetailView):
+class TodoDetailView(LoginRequiredMixin, RestrictToUserMixin, DetailView):
     model = Todo
 
 
-class TodoListView(LoginRequiredMixin, RestrictToUserMixin, generic.ArchiveIndexView):
+class TodoListView(LoginRequiredMixin, RestrictToUserMixin, ArchiveIndexView):
     paginate_by = 10
     date_field = 'created_at'
     allow_empty = True

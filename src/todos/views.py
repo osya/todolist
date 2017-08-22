@@ -7,8 +7,8 @@ from django.views.generic.base import View
 from django.views.generic.detail import SingleObjectMixin
 from django.views.generic.list import MultipleObjectMixin
 
-from .forms import TodoForm
-from .models import Todo
+from todos.forms import TodoForm
+from todos.models import Todo
 
 
 class SuccessUrlMixin(View):

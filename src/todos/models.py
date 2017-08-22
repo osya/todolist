@@ -8,7 +8,7 @@ from taggit_selectize.managers import TaggableManager
 
 class TodoQuerySet(models.QuerySet):
     def list(self, query_dict={}):
-        queryset = self.order_by('-created_at')
+        queryset = self
         tags = query_dict.get('tags')
         if tags:
             tags = tags.split(',')
@@ -22,6 +22,9 @@ class TodoQuerySet(models.QuerySet):
 
 
 class Todo(models.Model):
+    class Meta:
+        ordering = ('-created_at',)
+
     title = models.CharField(max_length=200)
     text = MarkdownField()
     created_at = models.DateTimeField(auto_now_add=True, blank=True)

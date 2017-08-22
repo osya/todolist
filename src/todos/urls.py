@@ -11,3 +11,4 @@ urlpatterns = [
 # TODO: Implement 2FA & update corresponding Cover letter
 # TODO: Implement TBA using django-allauth & update corresponding Cover letter
 # TODO: Implement dependencies (Bootsrap) installation via Bower or Webpack
+# TODO: Add Travis & update corresponding Cover letter

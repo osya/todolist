@@ -9,7 +9,7 @@ from django.test import TestCase, Client, RequestFactory, LiveServerTestCase
 from selenium.webdriver.chrome.webdriver import WebDriver
 
 from todos.models import Todo
-from todos.views import TodoListView
+from todos.views import TodoList
 
 
 def random_string_generator(size=10, chars=string.ascii_lowercase + string.digits):
@@ -47,14 +47,14 @@ class TodoListViewTests(TestCase):
     def test_no_todos_in_context(self):
         request = self.factory.get('/')
         request.user = UserFactory(password=random_string_generator())
-        response = TodoListView.as_view()(request)
+        response = TodoList.as_view()(request)
         self.assertEquals(list(response.context_data['latest']), [],)
 
     def test_todos_in_context(self):
         request = self.factory.get('/')
         todo = TodoFactory()
         request.user = todo.user
-        response = TodoListView.as_view()(request)
+        response = TodoList.as_view()(request)
         self.assertEquals(list(response.context_data['latest']), [todo],)
 
 

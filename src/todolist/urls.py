@@ -23,6 +23,6 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^accounts/', include('allauth.urls')),
     url(r'^taggit/', include('taggit_selectize.urls')),
-    url(r'^markdown/', include( 'django_markdown.urls')),
+    url(r'^markdown/', include('django_markdown.urls')),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 ]

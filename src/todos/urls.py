@@ -1,7 +1,7 @@
-from django.conf.urls import url, include
+from django.conf.urls import include, url
 from rest_framework.urlpatterns import format_suffix_patterns
 
-from todos.views import TodoDetail, TodoCreate, TodoList, TodoListApi, TodoDetailApi
+from todos.views import TodoCreate, TodoDetail, TodoDetailApi, TodoList, TodoListApi
 
 api_patterns = [
     url(r'^$', TodoListApi.as_view(), name='list'),

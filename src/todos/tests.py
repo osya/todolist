@@ -5,9 +5,9 @@ import factory
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.urlresolvers import reverse
-from django.test import TestCase, Client, RequestFactory, LiveServerTestCase
-from selenium.webdriver.chrome.webdriver import WebDriver
+from django.test import Client, LiveServerTestCase, RequestFactory, TestCase
 
+from selenium.webdriver.chrome.webdriver import WebDriver
 from todos.models import Todo
 from todos.views import TodoList
 
@@ -20,7 +20,7 @@ class UserFactory(factory.DjangoModelFactory):
     class Meta:
         model = get_user_model()
 
-    username = factory.Sequence(lambda n: "Agent %03d" % n)
+    username = factory.Sequence(lambda n: 'Agent %03d' % n)
     email = factory.LazyAttributeSequence(lambda o, n: f'{o.username}{n}@example.com')
     password = factory.PostGenerationMethodCall('set_password')
 

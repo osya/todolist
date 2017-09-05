@@ -2,9 +2,9 @@ from braces.views import SetHeadlineMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.urlresolvers import reverse
 from django.shortcuts import redirect
-from django.views.generic import CreateView, ArchiveIndexView
+from django.views.generic import ArchiveIndexView, CreateView
 from django.views.generic.base import View
-from django.views.generic.detail import SingleObjectMixin, DetailView
+from django.views.generic.detail import DetailView, SingleObjectMixin
 from django.views.generic.list import MultipleObjectMixin
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 

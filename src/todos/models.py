@@ -16,8 +16,8 @@ class TodoQuerySet(models.QuerySet):
         q = query_dict.get('q')
         if q:
             queryset = queryset.filter(
-                    Q(title__icontains=q) |
-                    Q(text__icontains=q)).distinct()
+                Q(title__icontains=q) |
+                Q(text__icontains=q)).distinct()
         return queryset
 
 

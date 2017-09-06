@@ -6,8 +6,8 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.urlresolvers import reverse
 from django.test import Client, LiveServerTestCase, RequestFactory, TestCase
-
 from selenium.webdriver.chrome.webdriver import WebDriver
+
 from todos.models import Todo
 from todos.views import TodoList
 

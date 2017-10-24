@@ -1,9 +1,14 @@
 [![Build Status](https://travis-ci.org/osya/todolist.svg)](https://travis-ci.org/osya/todolist)
 
-Django-based TODO-app created during the video [Python Django Tutorial - Build A Todo App](https://www.youtube.com/watch?v=2yXfUPwlZTw). Deployed at [Heroku](https://django-todolist.herokuapp.com/)
+Django-based TODO-app created during the video [Python Django Tutorial - Build A Todo App](https://www.youtube.com/watch?v=2yXfUPwlZTw)
 
-# Installation
+Used technologies:
+- Testing: Selenium & PhantomJS & Factory Boy
+- Assets management: NPM & Webpack
+- Travis CI
+- Deployed at [Heroku](https://django-todolist.herokuapp.com/)
 
+Installation
 ```
     https://github.com/osya/todolist
     cd todolist

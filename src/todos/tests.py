@@ -6,7 +6,7 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.urlresolvers import reverse
 from django.test import Client, LiveServerTestCase, RequestFactory, TestCase
-from selenium.webdriver.chrome.webdriver import WebDriver
+from selenium.webdriver.phantomjs.webdriver import WebDriver
 
 from todos.models import Todo
 from todos.views import TodoList
@@ -63,7 +63,10 @@ class CreatePostIntegrationTest(LiveServerTestCase):
 
     @classmethod
     def setUpClass(cls):
-        cls.selenium = WebDriver()
+        cls.selenium = WebDriver(
+            executable_path=os.path.join(os.path.dirname(settings.BASE_DIR), 'node_modules', 'phantomjs-prebuilt',
+                                         'lib', 'phantom', 'bin', 'phantomjs')
+        )
         cls.password = random_string_generator()
         cls.user = UserFactory(password=cls.password)
         cls.client = Client()
@@ -85,7 +88,10 @@ class CreatePostIntegrationTest(LiveServerTestCase):
                 'name': settings.SESSION_COOKIE_NAME,
                 'value': cookie.value,
                 'secure': False,
-                'path': '/'})
+                'path': '/',
+                'domain': '127.0.0.1'  # it is needed for PhantomJS due to the issue
+                # "selenium.common.exceptions.WebDriverException: Message: 'phantomjs' executable needs to be in PATH"
+            })
         self.selenium.refresh()  # need to update page for logged in user
         self.selenium.find_element_by_id('id_title').send_keys('MyTitle')
         self.selenium.find_element_by_id('id_text').send_keys('MyText')

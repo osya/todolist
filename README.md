@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/osya/todolist.svg)](https://travis-ci.org/osya/todolist)
+[![Build Status](https://travis-ci.org/osya/todolist.svg)](https://travis-ci.org/osya/todolist) [![Coverage Status](https://coveralls.io/repos/github/osya/todolist/badge.svg?branch=master)](https://coveralls.io/github/osya/todolist?branch=master)
 
 Django-based TODO-app created during the video [Python Django Tutorial - Build A Todo App](https://www.youtube.com/watch?v=2yXfUPwlZTw)
 

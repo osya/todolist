@@ -10,7 +10,7 @@ Used technologies:
 
 Installation
 ```
-    https://github.com/osya/todolist
+    git clone https://github.com/osya/todolist
     cd todolist
     pip install -r requirements.txt
     npm install

@@ -13,15 +13,6 @@ from todos.models import Todo
 from todos.serializers import TodoSerializer
 
 
-class SuccessUrlMixin(View):
-    def get_success_url(self):
-        url = reverse('todos:list')
-        query = self.request.GET.urlencode()
-        if query:
-            url = f'{url}?{query}'
-        return url
-
-
 class RestrictToUserMixin(View):
     object = None
 
@@ -89,4 +80,13 @@ class TodoListApi(ListCreateAPIView):
         return Todo.objects.list(self.request.GET)
 
 # TODO: Implement Update & Delete tasks
+# class TodoDelete():
+#
+#     def get_success_url(self):
+#         url = reverse('todos:list')
+#         query = self.request.GET.urlencode()
+#         if query:
+#             url = f'{url}?{query}'
+#         return url
+
 # TODO: Write tests for the API calls

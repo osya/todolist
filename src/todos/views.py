@@ -42,7 +42,7 @@ class RestrictToUserMixin(View):
             else redirect(reverse('login'))
 
 
-class TodoCreate(SetHeadlineMixin, LoginRequiredMixin, CreateView):
+class TodoCreate(LoginRequiredMixin, SetHeadlineMixin, CreateView):
     form_class = TodoForm
     model = Todo
     headline = 'Add Todo'

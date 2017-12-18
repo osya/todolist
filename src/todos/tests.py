@@ -96,5 +96,5 @@ class CreatePostIntegrationTest(LiveServerTestCase):
         self.selenium.refresh()  # need to update page for logged in user
         self.selenium.find_element_by_id('id_title').send_keys('MyTitle')
         self.selenium.find_element_by_id('id_text').send_keys('MyText')
-        self.selenium.find_element_by_xpath('//input[@type="submit"]').click()
+        self.selenium.find_element_by_xpath('//*[@id="submit-id-create"]').click()
         self.assertEqual(Todo.objects.first().title, 'MyTitle')

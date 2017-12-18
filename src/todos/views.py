@@ -3,12 +3,12 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.urlresolvers import reverse
 from django.shortcuts import redirect
 from django.views.generic import ArchiveIndexView, CreateView
-from django.views.generic.base import View
+from django.views.generic.base import ContextMixin, View
 from django.views.generic.detail import DetailView, SingleObjectMixin
 from django.views.generic.list import MultipleObjectMixin
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 
-from todos.forms import TodoForm
+from todos.forms import SearchForm, TodoForm
 from todos.models import Todo
 from todos.serializers import TodoSerializer
 
@@ -33,7 +33,14 @@ class RestrictToUserMixin(View):
             else redirect(reverse('login'))
 
 
-class TodoCreate(LoginRequiredMixin, SetHeadlineMixin, CreateView):
+class SearchFormMixin(ContextMixin, View):
+    def get_context_data(self, **kwargs):
+        context = super(SearchFormMixin, self).get_context_data(**kwargs)
+        context['search_form'] = SearchForm(self.request.GET)
+        return context
+
+
+class TodoCreate(LoginRequiredMixin, SetHeadlineMixin, SearchFormMixin, CreateView):
     form_class = TodoForm
     model = Todo
     headline = 'Add Todo'
@@ -52,7 +59,7 @@ class TodoCreate(LoginRequiredMixin, SetHeadlineMixin, CreateView):
         return super(TodoCreate, self).form_valid(form)
 
 
-class TodoDetail(LoginRequiredMixin, RestrictToUserMixin, DetailView):
+class TodoDetail(LoginRequiredMixin, RestrictToUserMixin, SearchFormMixin, DetailView):
     model = Todo
 
 
@@ -63,7 +70,7 @@ class TodoDetailApi(RetrieveUpdateDestroyAPIView):
         return Todo.objects.list(self.request.GET)
 
 
-class TodoList(LoginRequiredMixin, RestrictToUserMixin, ArchiveIndexView):
+class TodoList(LoginRequiredMixin, RestrictToUserMixin, SearchFormMixin, ArchiveIndexView):
     paginate_by = 10
     date_field = 'created_at'
     allow_empty = True
@@ -80,7 +87,7 @@ class TodoListApi(ListCreateAPIView):
         return Todo.objects.list(self.request.GET)
 
 # TODO: Implement Update & Delete tasks
-# class TodoDelete():
+# class TodoDelete(LoginRequiredMixin, RestrictToUserMixin, SearchFormMixin):
 #
 #     def get_success_url(self):
 #         url = reverse('todos:list')

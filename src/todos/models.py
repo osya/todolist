@@ -15,11 +15,11 @@ class TodoQuerySet(models.QuerySet):
         if tags:
             tags = tags.split(',')
             queryset = queryset.filter(tags__name__in=tags).distinct()
-        q = query_dict.get('q')
-        if q:
+        query = query_dict.get('query')
+        if query:
             queryset = queryset.filter(
-                Q(title__icontains=q) |
-                Q(text__icontains=q)).distinct()
+                Q(title__icontains=query) |
+                Q(text__icontains=query)).distinct()
         return queryset
 
 

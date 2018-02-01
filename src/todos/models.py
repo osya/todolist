@@ -31,7 +31,7 @@ class Todo(models.Model):
     text = MarkdownField()
     created_at = models.DateTimeField(auto_now_add=True, blank=True)
     tags = TaggableManager(blank=True)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, editable=False)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL)
 
     objects = TodoQuerySet.as_manager()
 

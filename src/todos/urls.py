@@ -1,16 +1,14 @@
-from django.conf.urls import include, url
+from django.conf.urls import url
+from rest_framework.routers import DefaultRouter
 from rest_framework.urlpatterns import format_suffix_patterns
 
-from todos.views import TodoCreate, TodoDetail, TodoDetailApi, TodoList, TodoListApi
+from todos.views import TodoCreate, TodoDetail, TodoList, TodoViewSet
 
-api_patterns = [
-    url(r'^$', TodoListApi.as_view(), name='list'),
-    url(r'^(?P<pk>\d+)/$', TodoDetailApi.as_view(), name='detail'),
-]
+router = DefaultRouter()
+router.register(r'todos', TodoViewSet, base_name='todo')
 
 urlpatterns = [
     url(r'^$', TodoList.as_view(), name='list'),
-    url(r'^api/', include(api_patterns, namespace='api')),
     url(r'^(?P<pk>\d+)$', TodoDetail.as_view(), name='detail'),
     url(r'^create/$', TodoCreate.as_view(), name='create'),
 ]

@@ -17,7 +17,10 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from django.views.generic import RedirectView
 
+from todos.urls import router
+
 urlpatterns = [
+    url(r'^api/', include(router.urls)),
     url(r'^$', RedirectView.as_view(pattern_name='todos:list'), name='home'),
     url(r'^todos/', include('todos.urls', namespace='todos')),
     url(r'^admin/', admin.site.urls),

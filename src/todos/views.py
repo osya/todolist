@@ -6,10 +6,11 @@ from django.views.generic import ArchiveIndexView, CreateView
 from django.views.generic.base import ContextMixin, View
 from django.views.generic.detail import DetailView, SingleObjectMixin
 from django.views.generic.list import MultipleObjectMixin
-from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework import permissions, viewsets
 
 from todos.forms import SearchForm, TodoForm
 from todos.models import Todo
+from todos.permissions import IsOwnerOrReadOnly
 from todos.serializers import TodoSerializer
 
 
@@ -18,7 +19,6 @@ class RestrictToUserMixin(View):
 
     def get_queryset(self):
         assert isinstance(self, (SingleObjectMixin, MultipleObjectMixin))
-        assert isinstance(self, View)
         queryset = super(RestrictToUserMixin, self).get_queryset()
         if self.request.user.is_authenticated() and not self.request.user.is_superuser:
             queryset = queryset.filter(user=self.request.user)
@@ -27,7 +27,6 @@ class RestrictToUserMixin(View):
     def post(self, request, *args, **kwargs):
         assert isinstance(self, SingleObjectMixin)
         self.object = self.get_object()
-        assert isinstance(self, View)
         return super(RestrictToUserMixin, self).post(request, *args, **kwargs) \
             if self.request.user == self.object.user or self.request.user.is_superuser \
             else redirect(reverse('login'))
@@ -63,13 +62,6 @@ class TodoDetail(LoginRequiredMixin, RestrictToUserMixin, SearchFormMixin, Detai
     model = Todo
 
 
-class TodoDetailApi(RetrieveUpdateDestroyAPIView):
-    serializer_class = TodoSerializer
-
-    def get_queryset(self):
-        return Todo.objects.list(self.request.GET)
-
-
 class TodoList(LoginRequiredMixin, RestrictToUserMixin, SearchFormMixin, ArchiveIndexView):
     paginate_by = 10
     date_field = 'created_at'
@@ -80,12 +72,6 @@ class TodoList(LoginRequiredMixin, RestrictToUserMixin, SearchFormMixin, Archive
         return Todo.objects.list(self.request.GET)
 
 
-class TodoListApi(ListCreateAPIView):
-    serializer_class = TodoSerializer
-
-    def get_queryset(self):
-        return Todo.objects.list(self.request.GET)
-
 # TODO: Implement Update & Delete tasks
 # class TodoDelete(LoginRequiredMixin, RestrictToUserMixin, SearchFormMixin):
 #
@@ -95,5 +81,16 @@ class TodoListApi(ListCreateAPIView):
 #         if query:
 #             url = f'{url}?{query}'
 #         return url
+
+
+class TodoViewSet(viewsets.ModelViewSet):
+    serializer_class = TodoSerializer
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly)
+
+    def get_queryset(self):
+        return Todo.objects.list(self.request.GET)
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
 
 # TODO: Write tests for the API calls

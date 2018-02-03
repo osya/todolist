@@ -5,8 +5,8 @@ import string
 import factory
 from django.conf import settings
 from django.contrib.auth import get_user_model
-from django.core.urlresolvers import reverse
-from django.test import Client, LiveServerTestCase, RequestFactory, TestCase
+from django.test import LiveServerTestCase, RequestFactory, TestCase
+from django.urls import reverse
 from selenium.webdriver.phantomjs.webdriver import WebDriver
 
 from todos.models import Todo
@@ -31,14 +31,15 @@ class TodoFactory(factory.DjangoModelFactory):
         model = Todo
 
     user = factory.SubFactory(UserFactory, password=random_string_generator())
-    title = 'MyTitle'
-    text = 'MyText'
+    title = 'raw title'
+    text = 'raw text'
 
 
 class TodoTests(TestCase):
-    def test_str(self):
+    def test_todo_create(self):
         todo = TodoFactory()
-        self.assertEqual(str(todo), 'MyTitle')
+        self.assertEqual(1, Todo.objects.count())
+        self.assertEqual('raw title', todo.title)
 
 
 class TodoListViewTests(TestCase):
@@ -69,8 +70,6 @@ class CreatePostIntegrationTest(LiveServerTestCase):
                                          'lib', 'phantom', 'bin', 'phantomjs')
         ) if 'nt' == os.name else WebDriver()
         cls.password = random_string_generator()
-        cls.user = UserFactory(password=cls.password)
-        cls.client = Client()
         super(CreatePostIntegrationTest, cls).setUpClass()
 
     @classmethod
@@ -78,7 +77,25 @@ class CreatePostIntegrationTest(LiveServerTestCase):
         cls.selenium.quit()
         super(CreatePostIntegrationTest, cls).tearDownClass()
 
-    def test_create_todo(self):
+    def setUp(self):
+        # `user` creation placed in setUp() rather than setUpClass(). Because when `user` created in setUpClass then
+        # `test_todo_create` passed when executed separately, but failed when executed in batch
+        # TODO: investigate this magic
+        self.user = UserFactory(password=self.password)
+
+    def test_todo_list(self):
+        response = self.client.get(reverse('todos:list'))
+        self.assertIn(response.status_code, (301, 302))
+
+    def test_slash(self):
+        response = self.client.get(reverse('home'))
+        self.assertIn(response.status_code, (301, 302))
+
+    def test_empty_create(self):
+        response = self.client.get(reverse('todos:create'))
+        self.assertIn(response.status_code, (301, 302))
+
+    def test_todo_create(self):
         self.assertTrue(self.client.login(username=self.user.username, password=self.password))
         cookie = self.client.cookies[settings.SESSION_COOKIE_NAME]
         # Replace `localhost` to 127.0.0.1 due to the WinError 10054 according to the
@@ -94,7 +111,8 @@ class CreatePostIntegrationTest(LiveServerTestCase):
                 # "selenium.common.exceptions.WebDriverException: Message: 'phantomjs' executable needs to be in PATH"
             })
         self.selenium.refresh()  # need to update page for logged in user
-        self.selenium.find_element_by_id('id_title').send_keys('MyTitle')
-        self.selenium.find_element_by_id('id_text').send_keys('MyText')
+        self.selenium.find_element_by_id('id_title').send_keys('raw title')
+        self.selenium.find_element_by_id('id_text').send_keys('raw text')
         self.selenium.find_element_by_xpath('//*[@id="submit-id-create"]').click()
-        self.assertEqual(Todo.objects.first().title, 'MyTitle')
+        self.assertEqual(1, Todo.objects.count())
+        self.assertEqual('raw title', Todo.objects.first().title)

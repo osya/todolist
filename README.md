@@ -8,6 +8,7 @@ Django-based TODO-app created during the video [Python Django Tutorial - Build A
 
 Used technologies:
 
+- Python & Django
 - Testing: Selenium & PhantomJS & Factory Boy
 - Assets management: NPM & Webpack
 - Travis CI

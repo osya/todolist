@@ -23,18 +23,17 @@ class SearchForm(forms.Form):
         self.helper.form_class = 'navbar-form navbar-left'
         self.helper.attrs = {'role': 'search'}
         self.helper.form_method = 'GET'
-        self.helper.layout = Layout(
-            FieldWithButtons(
-                Field('query', autofocus='autofocus'),
-                Submit('', 'Search')
-            )
-        )
+        self.helper.layout = Layout(FieldWithButtons(Field('query', autofocus='autofocus'), Submit('', 'Search')))
 
 
 class TodoForm(forms.ModelForm):
     class Meta:
         model = Todo
-        fields = ('title', 'text', 'tags',)
+        fields = (
+            'title',
+            'text',
+            'tags',
+        )
         widgets = {
             'tags': TagSelectize(),
             'test': MarkdownWidget,
@@ -47,6 +46,4 @@ class TodoForm(forms.ModelForm):
             'title', 'text', 'tags',
             FormActions(
                 Submit('create', 'Create'),
-                HTML('<a href="{% url "todos:list" %}{% query_builder request %}">Go Back</a>')
-            )
-        )
+                HTML('<a href="{% url "todos:list" %}{% query_builder request %}">Go Back</a>')))

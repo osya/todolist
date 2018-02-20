@@ -10,8 +10,7 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
@@ -20,7 +19,8 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('title', models.CharField(max_length=200)),
                 ('text', models.TextField()),
-                ('created_at', models.DateTimeField(blank=True, default=datetime.datetime(2017, 7, 15, 22, 44, 45, 613202))),
+                ('created_at',
+                 models.DateTimeField(blank=True, default=datetime.datetime(2017, 7, 15, 22, 44, 45, 613202))),
             ],
         ),
     ]

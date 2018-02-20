@@ -17,15 +17,13 @@ class TodoQuerySet(models.QuerySet):
             queryset = queryset.filter(tags__name__in=tags).distinct()
         query = query_dict.get('query')
         if query:
-            queryset = queryset.filter(
-                Q(title__icontains=query) |
-                Q(text__icontains=query)).distinct()
+            queryset = queryset.filter(Q(title__icontains=query) | Q(text__icontains=query)).distinct()
         return queryset
 
 
 class Todo(models.Model):
     class Meta:
-        ordering = ('-created_at',)
+        ordering = ('-created_at', )
 
     title = models.CharField(max_length=200)
     text = MarkdownField()

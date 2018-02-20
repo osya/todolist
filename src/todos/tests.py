@@ -50,7 +50,7 @@ class TodoListViewTests(TestCase):
         request = self.factory.get('/')
         request.user = UserFactory(password=random_string_generator())
         response = TodoList.as_view()(request)
-        self.assertEquals(
+        self.assertEqual(
             list(response.context_data['latest']),
             [],
         )
@@ -60,7 +60,7 @@ class TodoListViewTests(TestCase):
         todo = TodoFactory()
         request.user = todo.user
         response = TodoList.as_view()(request)
-        self.assertEquals(
+        self.assertEqual(
             list(response.context_data['latest']),
             [todo],
         )

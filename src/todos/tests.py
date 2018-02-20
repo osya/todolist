@@ -17,6 +17,7 @@ def random_string_generator(size=10, chars=string.ascii_lowercase + string.digit
     return ''.join(random.choice(chars) for _ in range(size))
 
 
+# pragma pylint: disable=R0903
 class UserFactory(factory.DjangoModelFactory):
     class Meta:
         model = get_user_model()
@@ -33,6 +34,9 @@ class TodoFactory(factory.DjangoModelFactory):
     user = factory.SubFactory(UserFactory, password=random_string_generator())
     title = 'raw title'
     text = 'raw text'
+
+
+# pragma pylint: enable=R0903
 
 
 class TodoTests(TestCase):

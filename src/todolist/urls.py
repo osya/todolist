@@ -16,11 +16,12 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from django.views.generic import RedirectView
+from rest_framework.routers import DefaultRouter
 
-from todos.urls import router
+ROUTER = DefaultRouter()
 
 urlpatterns = [
-    url(r'^api/', include(router.urls)),
+    url(r'^api/', include(ROUTER.urls)),
     url(r'^$', RedirectView.as_view(pattern_name='todos:list'), name='home'),
     url(r'^todos/', include('todos.urls', namespace='todos')),
     url(r'^admin/', admin.site.urls),

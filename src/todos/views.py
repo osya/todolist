@@ -1,7 +1,7 @@
 from braces.views import SetHeadlineMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.core.urlresolvers import reverse
 from django.shortcuts import redirect
+from django.urls import reverse
 from django.views.generic import ArchiveIndexView, CreateView
 from django.views.generic.base import ContextMixin, View
 from django.views.generic.detail import DetailView, SingleObjectMixin
@@ -20,7 +20,7 @@ class RestrictToUserMixin(View):
     def get_queryset(self):
         assert isinstance(self, (SingleObjectMixin, MultipleObjectMixin))
         queryset = super(RestrictToUserMixin, self).get_queryset()
-        if self.request.user.is_authenticated() and not self.request.user.is_superuser:
+        if self.request.user.is_authenticated and not self.request.user.is_superuser:
             queryset = queryset.filter(user=self.request.user)
         return queryset
 

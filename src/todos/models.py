@@ -1,7 +1,7 @@
 from django.conf import settings
-from django.core.urlresolvers import reverse
 from django.db import models
 from django.db.models import Q
+from django.urls import reverse
 from django_markdown.models import MarkdownField
 from taggit_selectize.managers import TaggableManager
 
@@ -29,7 +29,7 @@ class Todo(models.Model):
     text = MarkdownField()
     created_at = models.DateTimeField(auto_now_add=True, blank=True)
     tags = TaggableManager(blank=True)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
 
     objects = TodoQuerySet.as_manager()
 

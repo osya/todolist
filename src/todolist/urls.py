@@ -13,20 +13,20 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import include, url
 from django.contrib import admin
+from django.urls import include, path
 from django.views.generic import RedirectView
 from rest_framework.routers import DefaultRouter
 
 ROUTER = DefaultRouter()
 
 urlpatterns = [
-    url(r'^api/', include(ROUTER.urls)),
-    url(r'^$', RedirectView.as_view(pattern_name='todos:list'), name='home'),
-    url(r'^todos/', include('todos.urls', namespace='todos')),
-    url(r'^admin/', admin.site.urls),
-    url(r'^accounts/', include('allauth.urls')),
-    url(r'^taggit/', include('taggit_selectize.urls')),
-    url(r'^markdown/', include('django_markdown.urls')),
-    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('api/', include(ROUTER.urls)),
+    path('', RedirectView.as_view(pattern_name='todos:list'), name='home'),
+    path('todos/', include('todos.urls', namespace='todos')),
+    path('admin/', admin.site.urls),
+    path('accounts/', include('allauth.urls')),
+    path('taggit/', include('taggit_selectize.urls')),
+    path('markdown/', include('django_markdown.urls')),
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 ]

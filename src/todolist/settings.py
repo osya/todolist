@@ -39,10 +39,8 @@ DJANGO_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
 )
-THIRD_PARTY_APPS = ('crispy_forms', 'django.contrib.sites', 'allauth',
-                    'allauth.account', 'allauth.socialaccount',
-                    'django_markdown', 'taggit', 'taggit_selectize',
-                    'rest_framework', 'webpack_loader')
+THIRD_PARTY_APPS = ('crispy_forms', 'django.contrib.sites', 'allauth', 'allauth.account', 'allauth.socialaccount',
+                    'django_markdown', 'taggit', 'taggit_selectize', 'rest_framework', 'webpack_loader')
 LOCAL_APPS = ('todos', 'core')
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
@@ -103,20 +101,16 @@ DATABASES['default'].update(dj_database_url.config(conn_max_age=500))
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME':
-        'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
     },
     {
-        'NAME':
-        'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
     },
     {
-        'NAME':
-        'django.contrib.auth.password_validation.CommonPasswordValidator',
+        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
     },
     {
-        'NAME':
-        'django.contrib.auth.password_validation.NumericPasswordValidator',
+        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
 
@@ -139,23 +133,16 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 if DEBUG:
-    STATIC_ROOT = os.path.join(
-        os.path.dirname(BASE_DIR), 'static', 'static-only')
-    STATICFILES_DIRS = (os.path.join(
-        os.path.dirname(BASE_DIR), 'static', 'static'), )
+    STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'static', 'static-only')
+    STATICFILES_DIRS = (os.path.join(os.path.dirname(BASE_DIR), 'static', 'static'), )
 
 WEBPACK_LOADER = {
     'DEFAULT': {
-        'CACHE':
-        not DEBUG,
-        'BUNDLE_DIR_NAME':
-        'static/',  # must end with slash
-        'STATS_FILE':
-        os.path.join(os.path.dirname(BASE_DIR), 'static', 'manifest.json'),
-        'POLL_INTERVAL':
-        0.1,
-        'TIMEOUT':
-        None
+        'CACHE': not DEBUG,
+        'BUNDLE_DIR_NAME': 'static/',  # must end with slash
+        'STATS_FILE': os.path.join(os.path.dirname(BASE_DIR), 'static', 'manifest.json'),
+        'POLL_INTERVAL': 0.1,
+        'TIMEOUT': None
     }
 }
 # This import should be placed after SECRET_KEY & WEBPACK_LOADER settings
@@ -215,14 +202,13 @@ TAGGIT_STRING_FROM_TAGS = 'taggit_selectize.utils.join_tags'
 
 # Disable it if you need to work with taggit-selectize in django-admin
 TAGGIT_SELECTIZE = {
-    'CSS_FILENAMES': (os.path.basename(
-        get_files('selectize', extension='css')[0]['path']), ),
+    'CSS_FILENAMES': (os.path.basename(get_files('selectize', extension='css')[0]['path']), ),
 }
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
     ],
-    'PAGE_SIZE':
-    10
+    'PAGE_SIZE': 10,
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination'
 }

@@ -2,11 +2,12 @@ import os
 import random
 import string
 
-import factory
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.test import LiveServerTestCase, RequestFactory, TestCase
 from django.urls import reverse
+
+import factory
 from selenium.webdriver.phantomjs.webdriver import WebDriver
 
 from todos.models import Todo
@@ -117,7 +118,7 @@ class CreatePostIntegrationTest(LiveServerTestCase):
                 'value': cookie.value,
                 'secure': False,
                 'path': '/',
-                'domain': '127.0.0.1'  # it is needed for PhantomJS due to the issue
+                'domain': '127.0.0.1',  # it is needed for PhantomJS due to the issue
                 # "selenium.common.exceptions.WebDriverException: Message: 'phantomjs' executable needs to be in PATH"
             })
         self.selenium.refresh()  # need to update page for logged in user

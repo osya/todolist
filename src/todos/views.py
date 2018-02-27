@@ -1,4 +1,3 @@
-from braces.views import SetHeadlineMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect
 from django.urls import reverse
@@ -6,6 +5,8 @@ from django.views.generic import ArchiveIndexView, CreateView
 from django.views.generic.base import ContextMixin, View
 from django.views.generic.detail import DetailView, SingleObjectMixin
 from django.views.generic.list import MultipleObjectMixin
+
+from braces.views import SetHeadlineMixin
 from rest_framework import permissions, viewsets
 
 from todos.forms import SearchForm, TodoForm

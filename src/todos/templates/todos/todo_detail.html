@@ -3,13 +3,14 @@
 
 {% block title %}Task: {{ object.title }}{% endblock %}
 
-{% block headline %}<h2>Task: {{ object.title }}</h2>{% endblock %}
-
 {% block content %}
-    <div class="row">
-        <div class="col-sm-6 col-sm-offset-3">
-            <p>{{ object.text | markdown }}</p>
-            <br>
+    <article class="row col-sm-6 col-sm-offset-3">
+        <header>
+            <h2>Task: {{ object.title }}</h2>
+        </header>
+        <p>{{ object.text | markdown }}</p>
+        <br>
+        <footer>
             {% with names=object.tags.names %}
                 {% if names.count > 0 %}
                     <p>Tags: {% for name in names %}{% if not forloop.first %}, {% endif %}
@@ -18,10 +19,10 @@
                     <br>
                 {% endif %}
             {% endwith %}
-            Created on {{ object.created_at }}
+            Created on <time pubdate>{{ object.created_at }}</time>
             <br>
             <a href="{% url 'todos:list' %}{% query_builder request %}"><< Back to the task list</a>
-        </div>
-    </div>
+        </footer>
+    </article>
 {% endblock %}
 
